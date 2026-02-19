@@ -328,7 +328,7 @@ export default function Home(){
 
             </a>
 
-            <a href="https://github.com" target="_blank" className="github">
+            <a href="https://github.com/ChadTyB" target="_blank" className="github">
 
               <svg viewBox="0 0 24 24" fill="currentColor">
 
