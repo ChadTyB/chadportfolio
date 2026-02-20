@@ -148,49 +148,11 @@ export default function Home(){
 
             </div>
 
-            <div className="logo-icon csharp">
+            <div className="logo-icon code">
 
-              <svg
-
-                viewBox="0 0 24 24"
-
-                fill="none"
-
-                stroke="currentColor"
-
-                strokeWidth="1.8"
-
-                strokeLinecap="round"
-
-                strokeLinejoin="round"
-              >
-                <polygon points="12 2 20 6 20 18 12 22 4 18 4 6 12 2" />
-
-                <text
-
-                  x="12"
-
-                  y="15"
-
-                  fontSize="5"
-
-                  textAnchor="middle"
-
-                  fill="currentColor"
-
-                  stroke="none"
-
-                  fontWeight="bold"
-
-                >
-
-                  C#
-                </text>
-
-              </svg>
-
+              <span className="code-icon">&lt;/&gt;</span>
+              
             </div>
-
           </div>
 
         </div>

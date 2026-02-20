@@ -207,6 +207,19 @@ section h2{
   line-height: 1;
 }
 
+.code-icon{
+  font-size: 5rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--text);
+  transition: all 0.4s ease;
+}
+
+.code:hover .code-icon{
+  text-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
+  transform: scale(1.08);
+}
+
 .gaming:hover .emoji{
   text-shadow: 0 0 25px #F9B17A, 0 0 50px #F9B17A;
   transform: scale(1.08);
@@ -222,13 +235,7 @@ section h2{
   transform: scale(1.08);
 }
 
-.csharp:hover svg{
-  filter: drop-shadow(0 0 25px #9B4F96) drop-shadow(0 0 25px #9B4F96);
-  transform: scale(1.08)
-}
-
-
-#about {
+#about{
   font-family: 'Inter', sans-serif;  
   font-size: 2rem;                 
   line-height: 2.5;                 
