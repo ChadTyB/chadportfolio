@@ -331,6 +331,11 @@ section h2{
     color: #ccc;
 }
 
+.contact-info a {
+    color: var(--text); 
+    text-decoration: none;
+}
+
 .info-item {
     display: flex;
     gap: 20px;
