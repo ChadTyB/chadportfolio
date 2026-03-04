@@ -69,26 +69,25 @@ export default function Home() {
 
   // CONTACT FORM SUBMISSION
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!formRef.current) return;
+  e.preventDefault();
+  if (!formRef.current) return;
 
-    emailjs
-      .sendForm(
-        "service_qb5i5pv",
-        "template_gygur2q",
-        formRef.current
-      )
-      .then(
-        () => {
-          alert("Message sent successfully!");
-          formRef.current?.reset();
-        },
-        (error: any) => {
-          alert("Failed to send message. Try again.");
-          console.error(error);
-        }
-      );
-  };
+  emailjs.sendForm(
+    "service_qb5i5pv",      
+    "template_gygur2q",     
+    formRef.current,
+    "Y1bnSvNqaeIT-MQuqH"  
+  ).then(
+    () => {
+      alert("Message sent successfully!");
+      formRef.current?.reset();
+    },
+    (error) => {
+      console.error("EmailJS error:", error.text);
+      alert("Failed to send message. Check your Service ID, Template ID, and Public Key.");
+    }
+  );
+};
 
   return (
     <main>
@@ -145,30 +144,33 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="contact-section">
-        <div className="contact-wrapper">
-          <div className="contact-info">
-            <h2>Contact Me</h2>
-            <p>I'm always open to discussing new projects...</p>
-          </div>
+     <section id="contact" className="contact-section">
+  <div className="contact-wrapper">
+    <div className="contact-info">
+      <h2>Contact Me</h2>
+      <p>I'm always open to discussing new projects...</p>
+    </div>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
-            <div className="form-group">
-              <label htmlFor="user_name">Name</label>
-              <input type="text" name="user_name" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="user_email">Email</label>
-              <input type="email" name="user_email" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <textarea name="message" required />
-            </div>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-      </section>
+    <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
+      <div className="form-group">
+        <label htmlFor="user_name">Name</label>
+        <input type="text" name="user_name" required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="user_email">Email</label>
+        <input type="email" name="user_email" required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="message">Message</label>
+        <textarea name="message" required />
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
 
       <footer>© 2026 BLOCK</footer>
     </main>
