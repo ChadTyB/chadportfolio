@@ -4,13 +4,12 @@ import { useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function Home() {
-  const line1Ref = useRef<HTMLHeadingElement>(null); // <h1>
-  const line2Ref = useRef<HTMLHeadingElement>(null); // <h2>
-  const formRef = useRef<HTMLFormElement>(null);     // <form>
+  const line1Ref = useRef<HTMLHeadingElement>(null);
+  const line2Ref = useRef<HTMLHeadingElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // TYPEWRITER
   useEffect(() => {
-    // Navbar scroll effect
+    // NAVBAR SCROLL
     const nav = document.querySelector("nav");
     const handleScroll = () => {
       if (window.scrollY > 50) nav?.classList.add("scrolled");
@@ -18,7 +17,7 @@ export default function Home() {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Typewriter lines
+    // TYPEWRITER
     if (line1Ref.current) line1Ref.current.textContent = "Hi, I'm Tyrique Block";
     const roles = ["IT Graduate", "Software Engineer"];
     let roleIndex = 0;
@@ -50,7 +49,7 @@ export default function Home() {
     };
     startTypewriter();
 
-    // Skills intersection observer
+    // SKILLS INTERSECTION OBSERVER
     const categories = document.querySelectorAll(".skills-category");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -75,8 +74,8 @@ export default function Home() {
 
     emailjs
       .sendForm(
-        "service_qb5i5pv", // replace with your EmailJS service ID
-        "template_gygur2q", // replace with your EmailJS template ID
+        "service_qb5i5pv",
+        "template_gygur2q",
         formRef.current
       )
       .then(
@@ -105,85 +104,54 @@ export default function Home() {
         </ul>
       </nav>
 
-      {/* HOME SECTION */}
+      {/* HOME */}
       <section id="home" className="home-section">
         <div className="home-content">
           <div className="hero-text">
             <h1 ref={line1Ref}></h1>
             <h2 ref={line2Ref}></h2>
           </div>
-
-          <div className="hero-logos" style={{ display: "flex", flexWrap: "wrap", gap: "40px", justifyContent: "center" }}>
-            <div className="logo-icon gaming"><span className="emoji">🎮</span></div>
-            <div className="logo-icon music"><span className="emoji">🎵</span></div>
-            <div className="logo-icon laptop"><span className="emoji">💻</span></div>
-            <div className="logo-icon code"><span className="code-icon">&lt;/&gt;</span></div>
+          <div className="hero-logos" style={{ display: "flex", gap: 40, justifyContent: "center", flexWrap: "wrap" }}>
+            <span className="emoji">🎮</span>
+            <span className="emoji">🎵</span>
+            <span className="emoji">💻</span>
+            <span className="code-icon">&lt;/&gt;</span>
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
+      {/* ABOUT */}
       <section id="about" className="section">
         <h2>About Me</h2>
         <p>
-          My name is Tyrique Block. I am an Information Technology graduate. 
-          With that being said, my course was a three-year Diploma in IT 
-          that included Programming, Information Systems, Web Development, 
-          and Networking. I am motivated, dedicated, and a quick learner, 
-          with good communication and time-management skills.
+          My name is Tyrique Block. I am an Information Technology graduate...
         </p>
       </section>
 
-      {/* SKILLS SECTION */}
+      {/* SKILLS */}
       <section id="skills" className="section">
         <h2>Skills</h2>
         <div className="skills-container">
-          <div className="skills-category">
-            <h3>Frontend</h3>
-            <div className="skills-list">
-              <span>TypeScript</span>
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>React</span>
-              <span>Next.js</span>
-            </div>
-          </div>
-          <div className="skills-category">
-            <h3>Backend</h3>
-            <div className="skills-list">
-              <span>C#.NET</span>
-              <span>Asp.NET</span>
-              <span>SQL</span>
-              <span>Python</span>
-              <span>Flask</span>
-            </div>
-          </div>
-          <div className="skills-category">
-            <h3>Tools</h3>
-            <div className="skills-list">
-              <span>Git</span>
-              <span>VS Code</span>
-            </div>
-          </div>
+          <div className="skills-category"><h3>Frontend</h3><span>TypeScript</span><span>HTML</span><span>CSS</span><span>React</span><span>Next.js</span></div>
+          <div className="skills-category"><h3>Backend</h3><span>C#.NET</span><span>Asp.NET</span><span>SQL</span><span>Python</span><span>Flask</span></div>
+          <div className="skills-category"><h3>Tools</h3><span>Git</span><span>VS Code</span></div>
         </div>
       </section>
 
-      {/* PROJECTS SECTION */}
+      {/* PROJECTS */}
       <section id="projects" className="section">
         <h2>Projects</h2>
-        <p className="construction">UNDER CONSTRUCTION</p>
+        <p>UNDER CONSTRUCTION</p>
       </section>
 
-      {/* CONTACT SECTION */}
+      {/* CONTACT */}
       <section id="contact" className="contact-section">
         <div className="contact-wrapper">
-          {/* LEFT SIDE */}
           <div className="contact-info">
             <h2>Contact Me</h2>
-            <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.</p>
+            <p>I'm always open to discussing new projects...</p>
           </div>
 
-          {/* RIGHT SIDE FORM */}
           <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
               <label htmlFor="user_name">Name</label>
@@ -202,10 +170,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer>
-        <p>© 2026 BLOCK</p>
-      </footer>
+      <footer>© 2026 BLOCK</footer>
     </main>
   );
 }
