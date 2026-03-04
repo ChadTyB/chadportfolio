@@ -1,99 +1,94 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
-export default function Home(){
+export default function Home() {
+  const line1Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLSpanElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
+    // NAVBAR SCROLL
     const nav = document.querySelector("nav");
-
-    const onScroll = () => {
-
+    const handleScroll = () => {
       if (window.scrollY > 50) nav?.classList.add("scrolled");
-
       else nav?.classList.remove("scrolled");
-
     };
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", handleScroll);
 
-    const line1E1 = document.getElementById("typewriter-line1");
-
-    const line2E1 = document.getElementById("typewriter-line2");
-
-    if (line1E1) line1E1.textContent = "Hi, I'm Tyrique Block";
-
-    const roles = ["I.T Graduate", "Software Engineer"];
-
+    // TYPEWRITER
+    if (line1Ref.current) line1Ref.current.textContent = "Hi, I'm Tyrique Block";
+    const roles = ["IT Graduate", "Software Engineer"];
     let roleIndex = 0;
 
-    function typeRole(role: string, callback: () => void){
-
+    const typeRole = (role: string, callback: () => void) => {
       let i = 0;
-      function typeChar(){
-
-        if (i <= role.length){
-
-          if (line2E1)
-            line2E1.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
-
-          i++;
-
-          setTimeout(typeChar, 150);
-
-        } else {
-
-          setTimeout(callback, 2000);
-
+      const typeChar = () => {
+        if (line2Ref.current) {
+          line2Ref.current.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
         }
-
-      }
-
+        if (i <= role.length) {
+          i++;
+          setTimeout(typeChar, 150);
+        } else {
+          setTimeout(callback, 2000);
+        }
+      };
       typeChar();
+    };
 
-    }
-
-
-    function startTypewriter(){
-
+    const startTypewriter = () => {
       typeRole(roles[roleIndex], () => {
-
         roleIndex = (roleIndex + 1) % roles.length;
-
         startTypewriter();
-
       });
-
-    }
-
+    };
     startTypewriter();
 
+    // SKILLS INTERSECTION OBSERVER
     const categories = document.querySelectorAll(".skills-category");
-
     const observer = new IntersectionObserver(
-
       (entries) => {
-
         entries.forEach((entry) => {
-
           if (entry.isIntersecting) entry.target.classList.add("visible");
-
         });
-
       },
-      {threshold: 0.2}
-
+      { threshold: 0.2 }
     );
+    categories.forEach((cat) => observer.observe(cat));
 
-   categories.forEach((cat) => observer.observe(cat));
-
-
-    return () => window.removeEventListener("scroll", onScroll);
-
+    // CLEANUP
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
+  // CONTACT FORM SUBMISSION
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
 
-  return(
+    emailjs
+      .sendForm(
+        "service_qb5i5pv",
+        "template_gygur2q",
+        formRef.current
+      )
+      .then(
+        () => {
+          alert("Message sent successfully!");
+          formRef.current?.reset();
+        },
+        (error) => {
+          alert("Failed to send message. Try again.");
+          console.error(error);
+        }
+      );
+  };
 
+  return (
     <main>
 
       <nav>
