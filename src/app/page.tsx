@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function Home() {
-  const line1Ref = useRef<HTMLSpanElement>(null);
-  const line2Ref = useRef<HTMLSpanElement>(null);
+  const line1Ref = useRef<HTMLHeadingElement>(null);
+  const line2Ref = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function Home() {
 
     // TYPEWRITER
     if (line1Ref.current) line1Ref.current.textContent = "Hi, I'm Tyrique Block";
+
     const roles = ["IT Graduate", "Software Engineer"];
     let roleIndex = 0;
 
@@ -26,7 +27,10 @@ export default function Home() {
       let i = 0;
       const typeChar = () => {
         if (line2Ref.current) {
-          line2Ref.current.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
+          line2Ref.current.innerHTML = `<span class="highlight">${role.substring(
+            0,
+            i
+          )}</span>`;
         }
         if (i <= role.length) {
           i++;
@@ -58,7 +62,6 @@ export default function Home() {
     );
     categories.forEach((cat) => observer.observe(cat));
 
-    // CLEANUP
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
@@ -81,7 +84,7 @@ export default function Home() {
           alert("Message sent successfully!");
           formRef.current?.reset();
         },
-        (error) => {
+        (error: any) => {
           alert("Failed to send message. Try again.");
           console.error(error);
         }
