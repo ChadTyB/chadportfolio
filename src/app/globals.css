@@ -467,6 +467,33 @@ section h2{
   transform: scale(1.1);
 }
 
+/* Notification Toast */
+.notification {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background-color: var(--accent);
+  color: var(--base);
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 2000;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification.error {
+  background-color: #e74c3c; /* Red for errors */
+}
+
 footer{
   text-align: center;
   padding: 25px;

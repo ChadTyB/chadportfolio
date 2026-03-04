@@ -1,99 +1,101 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 
-export default function Home(){
+export default function Home() {
   useEffect(() => {
+    // ===== Scroll nav effect =====
     const nav = document.querySelector("nav");
-
     const onScroll = () => {
-
       if (window.scrollY > 50) nav?.classList.add("scrolled");
-
       else nav?.classList.remove("scrolled");
-
     };
     window.addEventListener("scroll", onScroll);
 
+    // ===== Typewriter =====
     const line1E1 = document.getElementById("typewriter-line1");
-
     const line2E1 = document.getElementById("typewriter-line2");
-
     if (line1E1) line1E1.textContent = "Hi, I'm Tyrique Block";
-
     const roles = ["I.T Graduate", "Software Engineer"];
-
     let roleIndex = 0;
 
-    function typeRole(role: string, callback: () => void){
-
+    function typeRole(role: string, callback: () => void) {
       let i = 0;
-      function typeChar(){
-
-        if (i <= role.length){
-
+      function typeChar() {
+        if (i <= role.length) {
           if (line2E1)
-            line2E1.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
-
+            line2E1.innerHTML = `<span class="highlight">${role.substring(
+              0,
+              i
+            )}</span>`;
           i++;
-
           setTimeout(typeChar, 150);
-
-        } else {
-
-          setTimeout(callback, 2000);
-
-        }
-
+        } else setTimeout(callback, 2000);
       }
-
       typeChar();
-
     }
 
-
-    function startTypewriter(){
-
+    function startTypewriter() {
       typeRole(roles[roleIndex], () => {
-
         roleIndex = (roleIndex + 1) % roles.length;
-
         startTypewriter();
-
       });
-
     }
-
     startTypewriter();
 
+    // ===== Skills observer =====
     const categories = document.querySelectorAll(".skills-category");
-
     const observer = new IntersectionObserver(
-
       (entries) => {
-
         entries.forEach((entry) => {
-
           if (entry.isIntersecting) entry.target.classList.add("visible");
-
         });
-
       },
-      {threshold: 0.2}
-
+      { threshold: 0.2 }
     );
+    categories.forEach((cat) => observer.observe(cat));
 
-   categories.forEach((cat) => observer.observe(cat));
+    // ===== Notification Function =====
+    function showNotification(message: string, type: "success" | "error" = "success") {
+      const notification = document.getElementById("notification");
+      if (!notification) return;
 
+      notification.textContent = message;
+      notification.className = `notification ${type} show`;
+
+      setTimeout(() => {
+        notification.className = "notification"; // hide after 3s
+      }, 3000);
+    }
+
+    // ===== Contact form handler =====
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (res.ok) {
+          showNotification(result.message, "success");
+          form.reset();
+        } else showNotification(result.error, "error");
+      } catch (err) {
+        showNotification("Unexpected error occurred.", "error");
+        console.error(err);
+      }
+    });
 
     return () => window.removeEventListener("scroll", onScroll);
-
   }, []);
 
-
-  return(
-
+  return (
     <main>
 
       <nav>
@@ -342,16 +344,16 @@ export default function Home(){
 
         <a href="https://github.com/ChadTyB" target="_blank" rel="noreferrer" className="github">
           <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 .5C5.7.5.8 5.4.8 11.7c0 4.9 3.2 9 7.6 10.5.6.1.8-.3.8-.6v-2.3
-            c-3.1.7-3.8-1.5-3.8-1.5-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 
-            1.1.1 1.7 1.2 1.7 1.2 1 .1 1.6-.8 2-1.3.1-.7.4-1.2.7-1.5
-            -2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.3 1.2-3.2
-            -.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2
-            .9-.3 1.9-.4 2.8-.4.9 0 1.9.1 2.8.4
-            2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 3 .1 3.3
-            .8.9 1.2 2 1.2 3.2 0 4.4-2.7 5.3-5.3 5.6
-            .4.3.8 1 .8 2v3c0 .3.2.7.8.6
-            4.4-1.5 7.6-5.6 7.6-10.5C23.2 5.4 18.3.5 12 .5z"/>
+            <path d="M12 .5C5.65.5.5 5.65.5 12 a11.5 11.5 0 0 0 7.86 10.94c.57.1.78-.25.78-.55
+            0-.27-.01-1.17-.02-2.13-3.2.7-3.87-1.54-3.87-1.54
+            -.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7
+            1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95
+            .1-.74.4-1.24.72-1.52-2.56-.29-5.26-1.28-5.26-5.71
+            0-1.26.45-2.3 1.18-3.11-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.15 1.19
+            a10.96 10.96 0 0 1 5.74 0 c2.19-1.5 3.15-1.19 3.15-1.19.62 1.59.23 2.77.11 3.06
+            .73.81 1.18 1.85 1.18 3.11 0 4.44-2.7 5.41-5.27 5.7
+            .41.35.77 1.04.77 2.1 0 1.52-.01 2.75-.01 3.12
+            0 .3.2.65.79.54A11.5 11.5 0 0 0 23.5 12 C23.5 5.65 18.35.5 12 .5z"/>
           </svg>
         </a>
       </div>
