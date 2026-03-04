@@ -18,37 +18,40 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
 
     // TYPEWRITER
-    if (line1Ref.current) line1Ref.current.textContent = "Hi, I'm Tyrique Block";
+   useEffect(() => {
+  if (line1Ref.current) line1Ref.current.textContent = "Hi, I'm Tyrique Block";
 
-    const roles = ["IT Graduate", "Software Engineer"];
-    let roleIndex = 0;
+  const roles = ["IT Graduate", "Software Engineer"];
+  let roleIndex = 0;
 
-    const typeRole = (role: string, callback: () => void) => {
-      let i = 0;
-      const typeChar = () => {
-        if (line2Ref.current) {
-          line2Ref.current.innerHTML = `<span class="highlight">${role.substring(
-            0,
-            i
-          )}</span>`;
-        }
-        if (i <= role.length) {
-          i++;
-          setTimeout(typeChar, 150);
-        } else {
-          setTimeout(callback, 2000);
-        }
-      };
-      typeChar();
+  const typeRole = (role: string, callback: () => void) => {
+    let i = 0;
+
+    const typeChar = () => {
+      if (line2Ref.current) {
+        line2Ref.current.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
+      }
+
+      if (i < role.length) {  // <--- make sure it's strictly less than role.length
+        i++;
+        setTimeout(typeChar, 150);
+      } else {
+        setTimeout(callback, 2000);
+      }
     };
 
-    const startTypewriter = () => {
-      typeRole(roles[roleIndex], () => {
-        roleIndex = (roleIndex + 1) % roles.length;
-        startTypewriter();
-      });
-    };
-    startTypewriter();
+    typeChar();
+  };
+
+  const startTypewriter = () => {
+    typeRole(roles[roleIndex], () => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      startTypewriter();
+    });
+  };
+
+  startTypewriter();
+}, []);
 
     // SKILLS INTERSECTION OBSERVER
     const categories = document.querySelectorAll(".skills-category");
