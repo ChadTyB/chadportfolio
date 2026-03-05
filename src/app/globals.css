@@ -306,7 +306,6 @@ section h2{
 
 .construction { color: red; font-weight: bold; font-size: 1.6rem; }
 
-/* ================== CONTACT SECTION ================== */
 .contact-section {
     padding: 120px 8%;
     background: var(--base);
@@ -432,7 +431,6 @@ section h2{
     }
 }
 
-/* ================== FOOTER ================== */
 .social-links{
   display: flex;
   justify-content: center;
@@ -467,7 +465,7 @@ section h2{
   transform: scale(1.1);
 }
 
-/* Notification Toast */
+
 .notification {
   position: fixed;
   bottom: 40px;
@@ -501,7 +499,6 @@ footer{
   background-color: rgba(103,111,157,0.15);
 }
 
-/* ================== MEDIA ================== */
 @media (max-width: 1024px){
   .hero-content { flex-direction: column; gap: 60px; }
   .hero-logos { gap: 30px; }
@@ -519,4 +516,15 @@ footer{
   .typewriter { font-size: 2.2rem; }
   .typewriter.roles { font-size: 1.5rem; }
   .logo-icon .emoji { font-size: 3rem; }
+}
+
+@keyframes toastSlide{
+  from{
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

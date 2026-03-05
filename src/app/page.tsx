@@ -1,93 +1,133 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+
+  const [showToast, setShowToast] = useState(false);
+
   useEffect(() => {
-    // ===== Scroll nav effect =====
+
     const nav = document.querySelector("nav");
+
     const onScroll = () => {
+
       if (window.scrollY > 50) nav?.classList.add("scrolled");
+
       else nav?.classList.remove("scrolled");
     };
     window.addEventListener("scroll", onScroll);
 
-    // ===== Typewriter =====
     const line1E1 = document.getElementById("typewriter-line1");
+
     const line2E1 = document.getElementById("typewriter-line2");
+
     if (line1E1) line1E1.textContent = "Hi, I'm Tyrique Block";
+
     const roles = ["I.T Graduate", "Software Engineer"];
+
     let roleIndex = 0;
 
     function typeRole(role: string, callback: () => void) {
+
       let i = 0;
+
       function typeChar() {
+
         if (i <= role.length) {
+
           if (line2E1)
-            line2E1.innerHTML = `<span class="highlight">${role.substring(
-              0,
-              i
-            )}</span>`;
+
+            line2E1.innerHTML = `<span class="highlight">${role.substring(0, i)}</span>`;
           i++;
+
           setTimeout(typeChar, 150);
+
         } else setTimeout(callback, 2000);
       }
       typeChar();
     }
 
     function startTypewriter() {
+
       typeRole(roles[roleIndex], () => {
+
         roleIndex = (roleIndex + 1) % roles.length;
+
         startTypewriter();
       });
     }
+
     startTypewriter();
 
-    // ===== Skills observer =====
     const categories = document.querySelectorAll(".skills-category");
+
     const observer = new IntersectionObserver(
       (entries) => {
+
         entries.forEach((entry) => {
+
           if (entry.isIntersecting) entry.target.classList.add("visible");
         });
       },
       { threshold: 0.2 }
     );
+
     categories.forEach((cat) => observer.observe(cat));
 
-    // ===== Notification Function =====
     function showNotification(message: string, type: "success" | "error" = "success") {
+
       const notification = document.getElementById("notification");
+
       if (!notification) return;
 
       notification.textContent = message;
+
       notification.className = `notification ${type} show`;
 
       setTimeout(() => {
-        notification.className = "notification"; // hide after 3s
+
+        notification.className = "notification";
+
       }, 3000);
     }
 
-    // ===== Contact form handler =====
     const form = document.getElementById("contact-form") as HTMLFormElement;
+
     form.addEventListener("submit", async (e) => {
+
       e.preventDefault();
+
       const formData = new FormData(form);
+
       const data = Object.fromEntries(formData.entries());
 
       try {
         const res = await fetch("/api/contact", {
+          
           method: "POST",
+
           headers: { "Content-Type": "application/json" },
+
           body: JSON.stringify(data),
         });
+
         const result = await res.json();
+
         if (res.ok) {
-          showNotification(result.message, "success");
+
+          showNotification("Your email has been sent!", "success");
+
           form.reset();
-        } else showNotification(result.error, "error");
+
+        } else {
+          showNotification(result.error || "Failed to send message.", "error");
+
+        }
       } catch (err) {
+
         showNotification("Unexpected error occurred.", "error");
+
         console.error(err);
       }
     });
@@ -97,6 +137,9 @@ export default function Home() {
 
   return (
     <main>
+
+      {/* NOTIFICATION */}
+      <div id="notification" className="notification"></div>
 
       <nav>
 
@@ -265,7 +308,9 @@ export default function Home() {
 
     {/* LEFT SIDE */}
     <div className="contact-info">
+
       <h2>Contact Me</h2>
+
       <p>
         I'm always open to discussing new projects, creative ideas,
         or opportunities to be part of something amazing.
@@ -274,11 +319,17 @@ export default function Home() {
 
       {/* Email Info */}
       <div className="info-item">
+
         <div className="info-icon">
+
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
                strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+
             <path d="M4 4h16v16H4z"/>
+
             <polyline points="22,6 12,13 2,6"/>
+
           </svg>
         </div>
         <div>
@@ -291,9 +342,13 @@ export default function Home() {
 
       {/* Phone Info */}
       <div className="info-item">
+
         <div className="info-icon">
+
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
                strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2
             19.79 19.79 0 0 1-8.63-3.07
             19.5 19.5 0 0 1-6-6
@@ -309,17 +364,24 @@ export default function Home() {
         </div>
         <div>
           <span>Phone</span>
+
           <h4><a href="tel:0814918222">081 491 8222</a></h4>
+
         </div>
       </div>
 
       {/* Location Info */}
       <div className="info-item">
+
         <div className="info-icon">
+
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
                strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+
             <path d="M21 10c0 7-9 13-9 13S3 17 3 10
             a9 9 0 0 1 18 0z"/>
+            
             <circle cx="12" cy="10" r="3"/>
           </svg>
         </div>
@@ -360,7 +422,7 @@ export default function Home() {
     </div>
 
     {/* RIGHT SIDE (FORM) */}
-    <form id="contact-form" className="contact-form">
+   <form id="contact-form">
       <div className="form-group">
         <label>Name</label>
         <input type="text" name="user_name" placeholder="Your name" required />
@@ -380,10 +442,14 @@ export default function Home() {
         <span>Send Message</span>
       </button>
     </form>
-
   </div>
 </section>
 
+    {showToast && (
+      <div className="toast">
+         Your email has been sent successfully!
+      </div>
+    )}
 
       <footer>
 
