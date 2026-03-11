@@ -615,3 +615,22 @@ footer{
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px){
+
+  nav{
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  nav ul{
+    position: static;
+    transform: none;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+}
