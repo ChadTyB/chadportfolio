@@ -205,28 +205,124 @@ export default function Home() {
       </section>
 
 
-      <section id="about" className="section">
-        <h2>About Me</h2>
+     <section id="about" className="about">
 
-        <p>
+  <div className="about-container">
 
-         My name is Tyrique Block. I am an Information Technology graduate. With that being said,
+    <div className="about-left">
 
-         my course was a three-year Diploma in Information Technology that consisted of modules
+      <div className="about-header">
 
-         such as Programming, Information Systems, Web Development and Networking just to
+        <div className="about-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
 
-         name a few. I am highly motivated, dedicated a hard worker and a quick learner. I have
+            <path d="M20 21a8 8 0 0 0-16 0"/>
 
-         good time management, communication, and organizational skills. I work well under
+            <circle cx="12" cy="7" r="4"/>
 
-         pressure, and I can work effectively both independently and in groups. I know I have a lot
+          </svg>
+    </div>
+        <h2>Who I Am</h2>
+      </div>
 
-         to offer to your organization and I am keen to develop my professional skills.
+      <p>
+      My name is Tyrique Block. I am an Information Technology graduate. With that being said,
+      my course was a three-year Diploma in Information Technology that consisted of modules
+      such as Programming, Information Systems, Web Development and Networking just to
+      name a few. 
+      </p>
 
-        </p>
+      <p>
+      I am highly motivated, dedicated a hard worker and a quick learner. I have
+      good time management, communication, and organizational skills. I work well under
+      pressure, and I can work effectively both independently and in groups. I know I have a lot
+      to offer to your organization and I am keen to develop my professional skills.
+      </p>
+    </div>
 
-      </section>
+    <div className="about-right">
+
+      <div className="about-block">
+
+        <div className="about-header">
+
+         <div className="about-icon">
+
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+
+            <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+
+            </svg>
+
+          </div>
+          <h2>Education</h2>
+        </div>
+
+        <div className="about-card">
+
+          <h3>Diploma in Information Technology</h3>
+
+          <p className="about-sub">Damelin College</p>
+
+          <p className="about-date">2020 – 2022</p>
+
+        </div>
+      </div>
+
+      <div className="about-block">
+
+  <div className="about-header">
+
+    <div className="about-icon">
+
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+
+        <path d="M16 3H8v4h8V3z"/>
+      </svg>
+    </div>
+    <h2>Experience</h2>
+  </div>
+
+  {/* Experience 1 */}
+  <div className="about-card">
+
+    <h3>Software Engineer Learner</h3>
+
+    <p className="about-sub accent">Mindworx Consulting</p>
+
+    <p className="about-date">January 2025 – Present</p>
+
+    <p className="about-desc">
+      Building modern web applications and scalable solutions.
+    </p>
+
+  </div>
+
+  {/* Experience 2 */}
+  <div className="about-card">
+
+    <h3>Software Engineer Intern</h3>
+
+    <p className="about-sub accent">ThutoNet</p>
+
+    <p className="about-date">August 2025 – October 2025</p>
+
+    <p className="about-desc">
+      Developed responsive web interfaces and collaborated with teams to improve user experience.
+    </p>
+    
+  </div>
+
+</div>
+
+    </div>
+
+  </div>
+</section>
 
 
       <section id="skills" className="section">
@@ -422,7 +518,7 @@ export default function Home() {
     </div>
 
     {/* RIGHT SIDE (FORM) */}
-   <form id="contact-form">
+   <form id="contact-form" className="contact-form">
       <div className="form-group">
         <label>Name</label>
         <input type="text" name="user_name" placeholder="Your name" required />
